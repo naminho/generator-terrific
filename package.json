@@ -1,0 +1,23 @@
+{
+  "name": "generator-terrific",
+  "version": "1.0.0",
+  "description": "Generates a TerrificJS Module in a hybris environment.",
+  "keywords": [
+    "generator",
+    "terrific",
+    "hybris",
+    "terrificjs",
+    "namics",
+    "module",
+    "component",
+    "yeoman-generator"
+  ],
+  "files": [
+    "template"
+  ],
+  "author": "Matthias Giger <matthias.giger@namics.com>",
+  "license": "MIT",
+  "dependencies": {
+    "yeoman-generator": "^1.1.1"
+  }
+}
