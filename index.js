@@ -88,7 +88,7 @@ module.exports = class extends Generator {
       let newFile = file
 
       newFile = newFile.replace(/name/g, this.name)
-      newFile = newFile.replace(/type/g, this.type)
+      newFile = newFile.replace(/type/g, this.types)
       newFile = newFile.replace(/skin/g, this.skin)
 
       this.fs.copyTpl(
