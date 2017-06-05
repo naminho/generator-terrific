@@ -2,6 +2,10 @@
   "name": "generator-terrific",
   "version": "1.0.0",
   "description": "Generates a TerrificJS Module in a hybris environment.",
+  "scripts": {
+    "start": "./node_modules/yo/lib/cli.js .",
+    "lint": "./node_modules/standard/bin/cmd.js --fix"
+  },
   "keywords": [
     "generator",
     "terrific",
@@ -12,12 +16,20 @@
     "component",
     "yeoman-generator"
   ],
-  "files": [
-    "template"
-  ],
+  "standard": {
+    "ignore": [
+      "templates/*"
+    ]
+  },
+  "repository": "https://github.com/naminho/generator-terrific",
   "author": "Matthias Giger <matthias.giger@namics.com>",
   "license": "MIT",
   "dependencies": {
-    "yeoman-generator": "^1.1.1"
+    "glob": "^7.1.2",
+    "yeoman-generator": "^1.1.1",
+    "yo": "^1.8.5"
+  },
+  "devDependencies": {
+    "standard": "^10.0.2"
   }
 }
