@@ -106,10 +106,10 @@ module.exports = class extends Generator {
 
   writing () {
     let path = this.templatePath(this.generator)
+    let localGeneratorsAvailable = fs.existsSync(this.destinationPath('generators'))
 
-    // Check if local template folder is available
-    if (require('./package.json').name !== 'generator-terrific' && fs.existsSync(this.destinationPath('templates'))) {
-      path = this.destinationPath('templates')
+    if (localGeneratorsAvailable) {
+      path = this.destinationPath(`generators/${this.generator}`)
     }
 
     const files = glob.sync('**/*', {
@@ -119,6 +119,11 @@ module.exports = class extends Generator {
 
     files.forEach((file) => {
       let newFile = file
+      let sourcePath = this.templatePath(`${this.generator}/${file}`)
+
+      if (localGeneratorsAvailable) {
+        sourcePath = this.destinationPath(`generators/${this.generator}/${file}`)
+      }
 
       newFile = newFile.replace(/NAME/g, this.name)
       newFile = newFile.replace(/TYPE/g, this.types)
@@ -127,7 +132,7 @@ module.exports = class extends Generator {
       newFile = newFile.replace(/TEMPLATE/g, this.template)
 
       this.fs.copyTpl(
-        this.templatePath(`${this.generator}/${file}`),
+        sourcePath,
         this.destinationPath(`${newFile}`),
         {
           name: this.name,
