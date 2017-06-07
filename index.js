@@ -27,22 +27,31 @@ module.exports = class extends Generator {
       [
         {
           type: 'list',
-          name: 'template',
+          name: 'generator',
           message: 'What do you want to generate?',
           choices: [
             'Component',
-            'Skin',
+            'Modifier',
             'Decorator',
-            'Preview'
+            'Preview',
+            'Template'
           ]
-        },
-        {
+        }, {
           type: 'input',
-          name: 'skin',
-          message: 'What\'s the name of the Skin/Decorator?',
-          when: (answers) => answers.template === 'Skin' || answers.template === 'Decorator'
-        },
-        {
+          name: 'modifier',
+          message: 'What\'s the name of the Modifier you want to add?',
+          when: (answers) => answers.generator === 'Modifier'
+        }, {
+          type: 'input',
+          name: 'decorator',
+          message: 'What\'s the name of the Decorator you want to add?',
+          when: (answers) => answers.generator === 'Decorator'
+        }, {
+          type: 'input',
+          name: 'template',
+          message: 'What\'s the name of the Template you want to add?',
+          when: (answers) => answers.generator === 'Template'
+        }, {
           type: 'input',
           name: 'name',
           message: 'What\'s the name of the component?',
@@ -59,7 +68,7 @@ module.exports = class extends Generator {
         }
       ]
     ).then((answers) => {
-      this.template = answers.template.toLowerCase()
+      this.generator = answers.generator.toLowerCase()
       this.name = firstToLower(answers.name)
       this.type = answers.type.toLowerCase()
       this.types = `${this.type}s`
@@ -69,21 +78,37 @@ module.exports = class extends Generator {
       this.name = camelAndKebabName.kebab
       this.Name = firstToUpper(this.nameCamel)
 
-      if (answers.skin) {
-        this.skin = firstToLower(answers.skin)
-        const camelAndKebabSkin = getCamelAndKebabCase(this.skin)
-        this.skinCamel = camelAndKebabSkin.camel
-        this.skin = camelAndKebabSkin.kebab
-        this.Skin = firstToUpper(this.skinCamel)
+      if (answers.modifier) {
+        this.modifier = firstToLower(answers.modifier)
+        const camelAndKebabSkin = getCamelAndKebabCase(this.modifier)
+        this.modifierCamel = camelAndKebabSkin.camel
+        this.modifier = camelAndKebabSkin.kebab
+        this.Modifier = firstToUpper(this.modifierCamel)
+      }
+
+      if (answers.decorator) {
+        this.decorator = firstToLower(answers.decorator)
+        const camelAndKebabSkin = getCamelAndKebabCase(this.decorator)
+        this.decoratorCamel = camelAndKebabSkin.camel
+        this.decorator = camelAndKebabSkin.kebab
+        this.Decorator = firstToUpper(this.decoratorCamel)
+      }
+
+      if (answers.template) {
+        this.template = firstToLower(answers.template)
+        const camelAndKebabSkin = getCamelAndKebabCase(this.template)
+        this.templateCamel = camelAndKebabSkin.camel
+        this.template = camelAndKebabSkin.kebab
+        this.Template = firstToUpper(this.templateCamel)
       }
     })
   }
 
   writing () {
-    let path = this.templatePath(this.template)
+    let path = this.templatePath(this.generator)
 
-    // Check if local templates are available
-    if (fs.existsSync(this.destinationPath('templates'))) {
+    // Check if local template folder is available
+    if (require('./package.json').name !== 'generator-terrific' && fs.existsSync(this.destinationPath('templates'))) {
       path = this.destinationPath('templates')
     }
 
@@ -95,18 +120,24 @@ module.exports = class extends Generator {
     files.forEach((file) => {
       let newFile = file
 
-      newFile = newFile.replace(/name/g, this.name)
-      newFile = newFile.replace(/type/g, this.types)
-      newFile = newFile.replace(/skin/g, this.skin)
+      newFile = newFile.replace(/NAME/g, this.name)
+      newFile = newFile.replace(/TYPE/g, this.types)
+      newFile = newFile.replace(/MODIFIER/g, this.modifier)
+      newFile = newFile.replace(/DECORATOR/g, this.decorator)
+      newFile = newFile.replace(/TEMPLATE/g, this.template)
 
       this.fs.copyTpl(
-        this.templatePath(`${this.template}/${file}`),
+        this.templatePath(`${this.generator}/${file}`),
         this.destinationPath(`${newFile}`),
         {
           name: this.name,
           Name: this.Name,
-          skin: this.skin,
-          Skin: this.Skin,
+          modifier: this.modifier,
+          Modifier: this.Modifier,
+          decorator: this.decorator,
+          Decorator: this.Decorator,
+          template: this.template,
+          Template: this.Template,
           type: this.type,
           types: this.types,
           typeShort: this.typeShort

@@ -1,10 +1,14 @@
 /**
- * Basic Decorator description.
+ * Basic Module description.
  */
-T.Module.<%= Name %>.<%= Skin %> = T.createDecorator({
+T.Module.<%= Name %> = T.createModule({
+  _selectors: {},
+  _eventNames: {},
+  _stateClasses: {},
+
   start(resolve) {
     // this.$ctx will contain a jQuery reference to the root element in the DOM.
-    this._parent.start(resolve);
+    resolve();
   },
 
   sync() {

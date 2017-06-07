@@ -1,10 +1,10 @@
 /**
- * Basic Module description.
+ * Basic Decorator description.
  */
-T.Module.<%= Name %> = T.createModule({
+T.Module.<%= Name %>.<%= Decorator %> = T.createDecorator({
   start(resolve) {
     // this.$ctx will contain a jQuery reference to the root element in the DOM.
-    resolve();
+    this._parent.start(resolve);
   },
 
   sync() {
