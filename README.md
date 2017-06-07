@@ -27,3 +27,7 @@ It's advised to create a shortcut in your `package.json`
 ```
 
 and then running `npm run add` will suffice.
+
+## Custom Templates
+
+You can customize the templates for your project. If a templates folder is found in the root of your project, this will be used instead of the one in this repository.

@@ -1,5 +1,6 @@
 const Generator = require('yeoman-generator')
 const glob = require('glob')
+const fs = require('fs')
 
 const firstToLower = (str) => str.charAt(0).toLowerCase() + str.slice(1)
 const firstToUpper = (str) => str.charAt(0).toUpperCase() + str.slice(1)
@@ -79,8 +80,15 @@ module.exports = class extends Generator {
   }
 
   writing () {
+    let path = this.templatePath(this.template)
+
+    // Check if local templates are available
+    if (fs.existsSync(this.destinationPath('templates'))) {
+      path = this.destinationPath('templates')
+    }
+
     const files = glob.sync('**/*', {
-      cwd: this.templatePath(this.template),
+      cwd: path,
       nodir: true
     })
 
