@@ -11,7 +11,7 @@
 
 <terrific:mod
     name="<%= name %>"
-    classPrefix="T_customType"
+    classPrefix="<%= typeShort %>"
     tag="${tag}"
     htmlClasses="${htmlClasses}"
     decorator="${decorator}"
@@ -22,7 +22,7 @@
         <c:when test="false">
         </c:when>
         <c:otherwise>
-            <%%@ include file="/WEB-INF/terrific/components/<%= type %>/<%= name %>/<%= name %>.jsp" %>
+            <%%@ include file="/WEB-INF/terrific/components/<%= types %>/<%= name %>/<%= name %>.jsp" %%>
         </c:otherwise>
     </c:choose>
 </terrific:mod>
