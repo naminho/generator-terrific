@@ -2,22 +2,14 @@
 <%%@ include file="../../../../../../terrific/taglibs.jsp" %>
 
 <template:page-preview pageTitle="${pageTitle}">
-
+	<atom:link linkName="Back" url="/terrific/preview/pages/preview/index" />
+    <atom:title><%- Name %></atom:title>
     <div>
-        <a href="/terrific/preview/pages/preview/index">Back</a>
-    </div>
-
-    <div>
-        <h1><%- Name %></h1>
-    </div>
-
-    <div>
-        <h2>Regular <%- Name %></h2>
-        <div class="g-row g-layout--three">
+		<atom:title tag="h2">Regular <%- Name %></atom:title>
+        <div class="g-row g-layout--three h-space">
             <div class="g-col">
                 <<%- type %>:<%- name %> />
             </div>
         </div>
     </div>
-
 </template:page-preview>

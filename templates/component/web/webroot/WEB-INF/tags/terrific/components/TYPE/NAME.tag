@@ -6,8 +6,7 @@
 <%%@ attribute name="attributes" description="Additional attributes as comma-separated list, e.g. id='123',role='banner'" type="java.lang.String" rtexprvalue="false" %>
 <%%@ attribute name="template" description="The template used for rendering of the module" type="java.lang.String" rtexprvalue="false" %>
 
-<%%@ taglib prefix="terrific" uri="http://www.namics.com/commons/taglibs/terrific" %>
-<%%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%%@ include file="../../../../terrific/taglibs.jsp" %>
 
 <terrific:mod
     name="<%= name %>"
@@ -18,11 +17,5 @@
     dataConnectors="${dataConnectors}"
     attributes="${attributes}"
 >
-    <c:choose>
-        <c:when test="false">
-        </c:when>
-        <c:otherwise>
-            <%%@ include file="/WEB-INF/terrific/components/<%= types %>/<%= name %>/<%= name %>.jsp" %%>
-        </c:otherwise>
-    </c:choose>
+    <%%@ include file="/WEB-INF/terrific/components/<%= types %>/<%= name %>/<%= name %>.jsp" %%>
 </terrific:mod>
