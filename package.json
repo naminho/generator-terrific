@@ -3,8 +3,8 @@
   "version": "1.1.2",
   "description": "Generates a TerrificJS Module in a hybris environment.",
   "scripts": {
-    "start": "./node_modules/yo/lib/cli.js .",
-    "lint": "./node_modules/standard/bin/cmd.js --fix"
+    "start": "yo .",
+    "lint": "standard --fix"
   },
   "keywords": [
     "generator",
@@ -27,7 +27,7 @@
   "dependencies": {
     "glob": "^7.1.2",
     "yeoman-generator": "^1.1.1",
-    "yo": "^1.8.5"
+    "yo": "^2.0.0"
   },
   "devDependencies": {
     "standard": "^10.0.2"
